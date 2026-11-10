@@ -1,0 +1,43 @@
+name: Code Connect
+
+# PRs: check the mapping files are valid (no token needed).
+# main: publish the mappings to Figma, so unreviewed changes never reach Figma.
+on:
+  pull_request:
+    paths:
+      - 'code-connect/**'
+      - 'figma.config.json'
+  push:
+    branches: [main]
+    paths:
+      - 'code-connect/**'
+      - 'figma.config.json'
+
+jobs:
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Parse every mapping
+        run: npx figma connect parse > /dev/null
+
+  publish:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Publish to Figma
+        run: npx figma connect publish
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}

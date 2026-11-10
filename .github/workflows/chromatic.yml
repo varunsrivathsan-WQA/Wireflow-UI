@@ -1,0 +1,30 @@
+name: Storybook review (Chromatic)
+
+# Runs on every pull request and every push to main.
+# Each PR gets its own published Storybook plus a visual diff against main.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Chromatic needs full history to compare branches
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@v13
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          autoAcceptChanges: main # changes merged to main become the new baseline
+          exitOnceUploaded: true # the review result shows up as a separate PR check
