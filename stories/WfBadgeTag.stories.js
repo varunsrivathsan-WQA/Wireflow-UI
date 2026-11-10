@@ -3,7 +3,7 @@ export default {
   argTypes: {
     content: { control: 'text' },
   },
-  args: { content: "Badge" },
+  args: { content: "Badge Test" },
   render: ({ content }) => {
     return `<span class="wf-badge">${content}</span>`;
   },
