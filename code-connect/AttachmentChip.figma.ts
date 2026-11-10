@@ -1,0 +1,15 @@
+// url=https://www.figma.com/design/Vnd1lVvmWGs19CXMtqUMqx/Wireflow-UI-Kit?node-id=222-544
+// source=stories/WfAttachmentChip.stories.js
+// component=wf-attachment-chip
+import figma from 'figma'
+
+export default {
+  example: figma.code`<div class="wf-attachment">
+  <svg class="wf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+  <span class="wf-attachment__name">file.pdf</span>
+  <button class="wf-attachment__remove"><svg class="wf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+</div>`,
+  imports: [],
+  id: 'wf-attachment-chip',
+  metadata: { nestable: false },
+}
